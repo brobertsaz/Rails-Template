@@ -3,7 +3,6 @@ RAILS_REQUIREMENT = "~> 5.0.0"
 def apply_template!
   assert_minimum_rails_version
   assert_valid_options
-  assert_postgresql
   add_template_repository_to_source_path
 
   template "Gemfile.tt", :force => true
@@ -109,12 +108,6 @@ def assert_valid_options
   end
 end
 
-def assert_postgresql
-  return if IO.read("Gemfile") =~ /^\s*gem ['"]pg['"]/
-  fail Rails::Generators::Error,
-       "This template requires PostgreSQL, "\
-       "but the pg gem isn’t present in your Gemfile."
-end
 
 # Mimic the convention used by capistrano-mb in order to generate
 # accurate deployment documentation.
